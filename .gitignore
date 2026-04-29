@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code (ignore personal settings, but keep recommended extensions)
+.vscode/*
+!.vscode/extensions.json
+*.code-workspace
+
+# Editor backups
+*~
+*.swp
+*.swo
+
+# Node (if you ever add tooling)
+node_modules/
+package-lock.json
+
+# Logs
+*.log
+
+# Claude Code
+.claude/
