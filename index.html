@@ -10,9 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #FAF9F7;
-    --paper-deep: #F0EBF8;
-    --paper-gold: #FBF5E0;
+    --paper: #FFFFFF;
+    --paper-warm: #FAF9F7;
+    --paper-deep: #F7F3FE;
+    --paper-gold: #FDFBF0;
     --ink: #1E0A3C;
     --ink-soft: #4A3968;
     --ink-faded: #8B7BA8;
@@ -24,13 +25,15 @@
     --rule: #DDD5EE;
     --rule-on-dark: rgba(255,255,255,0.12);
     --white: #FFFFFF;
+    --accent-purple: rgba(104,32,164,0.28);
+    --accent-gold: rgba(232,184,48,0.55);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--paper);
+    background: var(--paper-warm);
     color: var(--ink);
     font-family: 'Inter', -apple-system, sans-serif;
     font-size: 17px;
@@ -154,7 +157,7 @@
 
   /* ───── Lede band ───── */
   .lede-band {
-    background: var(--paper);
+    background: var(--paper-warm);
     padding: 60px 0;
     border-bottom: 3px solid var(--purple-dark);
   }
@@ -181,12 +184,15 @@
   .section-block {
     padding: 80px 0;
     background: var(--paper);
+    border-top: 1px solid var(--rule);
   }
   .section-block.alt {
     background: var(--paper-deep);
+    border-top: 4px solid var(--accent-purple);
   }
   .section-block.gold-tint {
     background: var(--paper-gold);
+    border-top: 4px solid var(--accent-gold);
   }
 
   /* ───── Section markers ───── */
@@ -672,7 +678,8 @@
   }
   .decision .option {
     padding: 16px 18px;
-    background: var(--paper-deep);
+    background: var(--paper);
+    border: 1px solid var(--rule);
     border-radius: 4px;
     font-size: 14.5px;
     line-height: 1.5;
