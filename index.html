@@ -3,23 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Front Door — an AI workshop write-up</title>
+<title>One Front Door — Phoenix Court Works</title>
 <meta name="description" content="A wellbeing signposter for the neighbourhood, built across one workshop using Granola, ChatGPT and Claude. Process, artefacts, mockup.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #F5F1E8;
-    --paper-deep: #EDE6D3;
-    --ink: #1A1F2E;
-    --ink-soft: #4A5160;
-    --ink-faded: #8A8F9C;
-    --accent: #B8501C;
-    --accent-deep: #8C3A12;
-    --rule: #D9D2BE;
-    --teal: #2E6E6E;
-    --highlight: #F4E5C2;
+    --paper: #FAF9F7;
+    --paper-deep: #F0EBF8;
+    --paper-gold: #FBF5E0;
+    --ink: #1E0A3C;
+    --ink-soft: #4A3968;
+    --ink-faded: #8B7BA8;
+    --purple: #6820A4;
+    --purple-mid: #8B2DC8;
+    --purple-dark: #1C0840;
+    --gold: #E8B830;
+    --gold-dark: #9A7510;
+    --rule: #DDD5EE;
+    --rule-on-dark: rgba(255,255,255,0.12);
+    --white: #FFFFFF;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,121 +38,155 @@
     overflow-x: hidden;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(184, 80, 28, 0.025) 0%, transparent 35%),
-      radial-gradient(circle at 80% 70%, rgba(46, 110, 110, 0.02) 0%, transparent 40%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
   .container {
-    position: relative;
-    z-index: 1;
     max-width: 720px;
     margin: 0 auto;
     padding: 0 28px;
   }
 
-  /* ───── Masthead ───── */
-  header {
-    padding: 72px 0 0;
-    border-bottom: 1px solid var(--rule);
-    margin-bottom: 56px;
+  /* ───── Hero ───── */
+  .hero {
+    background: var(--purple-dark);
+    padding: 64px 0 80px;
+    position: relative;
+    overflow: hidden;
   }
-  .masthead-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 48px;
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 85% 10%, rgba(232,184,48,0.14) 0%, transparent 45%),
+      radial-gradient(ellipse at 15% 90%, rgba(139,45,200,0.25) 0%, transparent 45%);
+    pointer-events: none;
+  }
+  .hero .container { position: relative; z-index: 1; }
+
+  .pcw-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 52px;
+    padding: 9px 18px;
+    border: 1px solid rgba(232,184,48,0.45);
+    border-radius: 2px;
+  }
+  .pcw-badge .org {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+  .pcw-badge .sep {
+    width: 1px;
+    height: 14px;
+    background: rgba(232,184,48,0.3);
+    flex-shrink: 0;
+  }
+  .pcw-badge .meta {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--ink-faded);
+    color: rgba(255,255,255,0.4);
   }
-  .masthead-top .lhs { display: flex; gap: 24px; }
-  .masthead-top .lhs span:first-child { color: var(--accent); }
 
   h1 {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: clamp(48px, 8vw, 84px);
-    line-height: 0.98;
-    letter-spacing: -0.025em;
-    margin-bottom: 20px;
-    color: var(--ink);
+    font-size: clamp(52px, 9vw, 88px);
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    margin-bottom: 26px;
+    color: var(--white);
     font-variation-settings: "opsz" 144, "SOFT" 50;
   }
   h1 .ital {
     font-style: italic;
     font-weight: 400;
-    color: var(--accent);
+    color: var(--gold);
   }
+
   .standfirst {
     font-family: 'Fraunces', serif;
     font-weight: 400;
     font-size: 22px;
     line-height: 1.45;
-    color: var(--ink-soft);
+    color: rgba(255,255,255,0.72);
     max-width: 560px;
-    margin-bottom: 36px;
+    margin-bottom: 40px;
     font-variation-settings: "opsz" 36;
   }
+
   .byline {
     display: flex;
-    gap: 24px;
+    gap: 20px;
     align-items: center;
-    padding-bottom: 36px;
-    font-size: 14px;
-    color: var(--ink-faded);
+    padding-top: 32px;
+    border-top: 1px solid var(--rule-on-dark);
+    font-size: 13px;
+    color: rgba(255,255,255,0.42);
     flex-wrap: wrap;
   }
-  .byline strong { color: var(--ink); font-weight: 500; }
-  .byline .dot {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--ink-faded);
-  }
+  .byline strong { color: rgba(255,255,255,0.78); font-weight: 500; }
+  .byline .dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.22); }
 
-  /* ───── Lede with drop cap ───── */
+  /* ───── Lede band ───── */
+  .lede-band {
+    background: var(--paper);
+    padding: 60px 0;
+    border-bottom: 3px solid var(--purple-dark);
+  }
   .lede {
     font-family: 'Fraunces', serif;
     font-weight: 400;
     font-size: 21px;
     line-height: 1.55;
     color: var(--ink);
-    margin-bottom: 48px;
     font-variation-settings: "opsz" 36;
   }
   .lede::first-letter {
     font-family: 'Fraunces', serif;
     font-weight: 600;
-    font-size: 76px;
-    line-height: 0.85;
+    font-size: 80px;
+    line-height: 0.83;
     float: left;
-    margin: 8px 12px 0 -2px;
-    color: var(--accent);
+    margin: 6px 14px 0 -2px;
+    color: var(--purple);
     font-variation-settings: "opsz" 144;
+  }
+
+  /* ───── Section blocks ───── */
+  .section-block {
+    padding: 80px 0;
+    background: var(--paper);
+  }
+  .section-block.alt {
+    background: var(--paper-deep);
+  }
+  .section-block.gold-tint {
+    background: var(--paper-gold);
   }
 
   /* ───── Section markers ───── */
   .section-mark {
-    margin: 72px 0 28px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 0;
+    margin-bottom: 36px;
   }
-  .section-mark .num {
+  .section-mark .chip {
+    background: var(--purple-dark);
+    color: var(--gold);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--accent);
+    font-size: 10px;
     font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    flex-shrink: 0;
   }
   .section-mark .label {
     font-family: 'JetBrains Mono', monospace;
@@ -156,6 +194,8 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-faded);
+    padding: 0 16px;
+    flex-shrink: 0;
   }
   .section-mark .rule {
     flex: 1;
@@ -166,9 +206,9 @@
   h2 {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: 34px;
-    line-height: 1.1;
-    letter-spacing: -0.015em;
+    font-size: 36px;
+    line-height: 1.08;
+    letter-spacing: -0.018em;
     margin-bottom: 20px;
     color: var(--ink);
     font-variation-settings: "opsz" 60;
@@ -179,10 +219,8 @@
   p strong { color: var(--ink); font-weight: 600; }
   p em { color: var(--ink); }
 
-  /* ───── Themed discussion blocks ───── */
-  .themes {
-    margin: 32px 0 16px;
-  }
+  /* ───── Themes ───── */
+  .themes { margin: 36px 0 20px; }
   .theme {
     padding: 28px 0;
     border-top: 1px solid var(--rule);
@@ -197,7 +235,7 @@
     font-size: 10.5px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--purple-mid);
     line-height: 1.45;
     padding-top: 6px;
   }
@@ -205,7 +243,7 @@
     display: block;
     font-family: 'Fraunces', serif;
     font-style: italic;
-    font-size: 26px;
+    font-size: 28px;
     color: var(--ink);
     letter-spacing: 0;
     text-transform: none;
@@ -221,29 +259,25 @@
     color: var(--ink);
     font-variation-settings: "opsz" 36;
   }
-  .theme p {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 14px;
-  }
+  .theme p { font-size: 16px; line-height: 1.6; margin-bottom: 14px; }
   .theme p:last-child { margin-bottom: 0; }
   .theme .quote {
     font-family: 'Fraunces', serif;
     font-style: italic;
     font-size: 16px;
     color: var(--ink);
-    padding-left: 14px;
-    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+    border-left: 2px solid var(--purple);
     margin: 14px 0 0;
     line-height: 1.5;
   }
 
-  /* ───── The convergence callout ───── */
+  /* ───── Convergence callout ───── */
   .convergence {
-    margin: 40px 0 0;
-    padding: 28px 32px;
-    background: var(--paper-deep);
-    border-radius: 4px;
+    margin: 48px 0 0;
+    padding: 32px 36px;
+    background: var(--purple-dark);
+    border-radius: 3px;
     position: relative;
   }
   .convergence::before {
@@ -253,44 +287,42 @@
     left: 24px;
     background: var(--paper);
     padding: 0 12px;
-    color: var(--accent);
+    color: var(--gold);
     font-size: 18px;
   }
   .convergence h4 {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--ink-faded);
-    margin-bottom: 16px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 20px;
     font-weight: 500;
   }
-  .convergence ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  .convergence ul { list-style: none; padding: 0; margin: 0; }
   .convergence li {
-    padding: 8px 0 8px 28px;
+    padding: 9px 0 9px 28px;
     position: relative;
     font-size: 16px;
-    color: var(--ink);
+    color: rgba(255,255,255,0.85);
     line-height: 1.5;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
+  .convergence li:first-child { border-top: none; }
   .convergence li::before {
     content: '→';
     position: absolute;
     left: 0;
-    color: var(--accent);
+    color: var(--gold);
     font-weight: 500;
   }
 
   /* ───── Pull quote ───── */
   .pullquote {
-    margin: 48px -20px;
-    padding: 32px 28px;
-    border-left: 3px solid var(--accent);
-    background: rgba(244, 229, 194, 0.4);
+    margin: 48px 0;
+    padding: 32px 32px;
+    border-left: 4px solid var(--gold);
+    background: rgba(232,184,48,0.07);
     font-family: 'Fraunces', serif;
     font-style: italic;
     font-weight: 400;
@@ -310,35 +342,25 @@
     color: var(--ink-faded);
   }
 
-  /* ───── Artefacts list ───── */
-  .artefacts {
-    list-style: none;
-    margin: 0 0 48px;
-    padding: 0;
-  }
+  /* ───── Artefacts ───── */
+  .artefacts { list-style: none; margin: 0 0 48px; padding: 0; }
   .artefact {
     padding: 28px 0;
     border-top: 1px solid var(--rule);
     display: grid;
-    grid-template-columns: 60px 1fr;
+    grid-template-columns: 56px 1fr;
     gap: 24px;
     align-items: start;
     transition: padding-left 0.3s ease;
   }
   .artefact:hover { padding-left: 8px; }
   .artefact:last-child { border-bottom: 1px solid var(--rule); }
-
-  .artefact .glyph {
-    font-size: 32px;
-    line-height: 1;
-    padding-top: 4px;
-    filter: saturate(0.85);
-  }
+  .artefact .glyph { font-size: 30px; line-height: 1; padding-top: 5px; }
   .artefact .body { min-width: 0; }
   .artefact h3 {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: 22px;
+    font-size: 21px;
     line-height: 1.25;
     margin-bottom: 8px;
     color: var(--ink);
@@ -347,40 +369,46 @@
   .artefact h3 a {
     color: var(--ink);
     text-decoration: none;
-    background-image: linear-gradient(var(--accent), var(--accent));
+    background-image: linear-gradient(var(--purple), var(--purple));
     background-size: 0% 1.5px;
     background-repeat: no-repeat;
     background-position: 0 100%;
-    transition: background-size 0.4s ease, color 0.2s ease;
+    transition: background-size 0.35s ease, color 0.2s ease;
     padding-bottom: 2px;
   }
-  .artefact h3 a:hover {
-    background-size: 100% 1.5px;
-    color: var(--accent);
-  }
+  .artefact h3 a:hover { background-size: 100% 1.5px; color: var(--purple); }
   .artefact h3 a::after {
     content: ' ↗';
     color: var(--ink-faded);
-    font-size: 14px;
+    font-size: 13px;
     vertical-align: 2px;
-    transition: color 0.2s, transform 0.2s;
     display: inline-block;
+    transition: color 0.2s, transform 0.2s;
   }
-  .artefact h3 a:hover::after {
-    color: var(--accent);
-    transform: translate(2px, -2px);
+  .artefact h3 a:hover::after { color: var(--purple); transform: translate(2px,-2px); }
+  .file-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: 3px;
+    background: rgba(104,32,164,0.1);
+    color: var(--purple);
   }
-  .artefact .desc {
-    font-size: 15.5px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: 0;
+  .file-badge.doc {
+    background: rgba(232,184,48,0.18);
+    color: var(--gold-dark);
   }
+  .artefact .desc { font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); margin-bottom: 0; }
   .artefact .desc.aside {
-    margin-top: 10px;
-    padding: 12px 16px;
-    background: var(--paper-deep);
-    border-radius: 4px;
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: rgba(104,32,164,0.05);
+    border-radius: 3px;
     font-size: 14.5px;
     color: var(--ink-soft);
     font-style: italic;
@@ -388,25 +416,16 @@
   }
   .artefact .desc.aside strong { font-style: normal; }
 
-  /* ───── Mockup embed ───── */
+  /* ───── Mockup frame ───── */
   .mockup-frame {
-    margin: 56px 0;
+    margin: 44px 0;
     padding: 48px 0;
-    background: linear-gradient(180deg, var(--paper-deep) 0%, var(--paper) 100%);
+    background: linear-gradient(180deg, rgba(104,32,164,0.06) 0%, transparent 100%);
     border-radius: 8px;
     display: flex;
     justify-content: center;
     position: relative;
     overflow: hidden;
-  }
-  .mockup-frame::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(circle at 30% 40%, rgba(184, 80, 28, 0.04) 0%, transparent 50%),
-      radial-gradient(circle at 70% 60%, rgba(46, 110, 110, 0.03) 0%, transparent 50%);
-    pointer-events: none;
   }
   .mockup-caption {
     text-align: center;
@@ -417,74 +436,79 @@
     text-transform: uppercase;
     color: var(--ink-faded);
   }
-  .mockup-caption strong {
-    color: var(--accent);
-    margin-right: 8px;
-  }
+  .mockup-caption strong { color: var(--purple); margin-right: 8px; }
 
   /* ───── Footer ───── */
   footer {
-    margin-top: 96px;
-    padding: 48px 0 80px;
-    border-top: 1px solid var(--rule);
-    font-size: 14px;
-    color: var(--ink-faded);
-    line-height: 1.6;
+    background: var(--purple-dark);
+    padding: 60px 0 80px;
   }
-  footer p { color: var(--ink-faded); margin-bottom: 12px; }
-  footer .colophon {
+  .footer-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule-on-dark);
+  }
+  footer p { color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+  footer a { color: rgba(255,255,255,0.75); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); }
+  footer a:hover { color: var(--gold); }
+  .colophon {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-top: 24px;
+    margin-top: 28px;
+    color: rgba(255,255,255,0.2);
   }
 
   /* ───── Animations ───── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  h1, .standfirst, .byline, .lede {
-    animation: fadeUp 0.8s ease-out backwards;
-  }
-  h1 { animation-delay: 0.05s; }
-  .standfirst { animation-delay: 0.2s; }
-  .byline { animation-delay: 0.35s; }
-  .lede { animation-delay: 0.5s; }
+  .pcw-badge { animation: fadeUp 0.7s ease-out both; animation-delay: 0s; }
+  h1          { animation: fadeUp 0.7s ease-out both; animation-delay: 0.1s; }
+  .standfirst { animation: fadeUp 0.7s ease-out both; animation-delay: 0.22s; }
+  .byline     { animation: fadeUp 0.7s ease-out both; animation-delay: 0.36s; }
 
   /* ───── Mobile ───── */
   @media (max-width: 600px) {
-    .container { padding: 0 22px; }
-    header { padding-top: 48px; }
-    h1 { font-size: 52px; }
+    .container { padding: 0 20px; }
+    .hero { padding: 48px 0 60px; }
+    h1 { font-size: 54px; }
     .standfirst { font-size: 19px; }
     .lede { font-size: 19px; }
-    .lede::first-letter { font-size: 58px; }
+    .lede::first-letter { font-size: 62px; }
     h2 { font-size: 28px; }
-    .pullquote { margin: 40px -10px; padding: 24px 22px; font-size: 20px; }
-    .artefact { grid-template-columns: 44px 1fr; gap: 16px; padding: 24px 0; }
-    .artefact .glyph { font-size: 26px; }
+    .section-block { padding: 56px 0; }
+    .lede-band { padding: 48px 0; }
+    .pullquote { padding: 24px 22px; font-size: 20px; }
+    .artefact { grid-template-columns: 42px 1fr; gap: 16px; padding: 22px 0; }
+    .artefact .glyph { font-size: 24px; }
     .artefact h3 { font-size: 19px; }
-    .theme { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
+    .theme { grid-template-columns: 1fr; gap: 10px; padding: 24px 0; }
     .theme .marker { padding-top: 0; }
-    .convergence { padding: 24px 22px; margin: 32px -10px 0; }
-    .mockup-frame { padding: 28px 0; margin: 40px -22px; border-radius: 0; }
+    .convergence { padding: 24px 22px; }
+    .mockup-frame { padding: 28px 0; margin: 32px -20px; border-radius: 0; }
+    .pcw-badge { flex-wrap: wrap; gap: 8px; }
+    .pcw-badge .sep { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-
-  <!-- ═══════════════ MASTHEAD ═══════════════ -->
-  <header>
-    <div class="masthead-top">
-      <div class="lhs">
-        <span>Workshop No. 04</span>
-        <span>Neighbourhood Labs</span>
-      </div>
-      <span>April 2026</span>
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="hero">
+  <div class="container">
+    <div class="pcw-badge">
+      <span class="org">Phoenix Court Works</span>
+      <span class="sep"></span>
+      <span class="meta">Workshop No. 04 · April 2026</span>
     </div>
     <h1>One <span class="ital">Front</span> Door</h1>
     <p class="standfirst">A wellbeing signposter for the neighbourhood, built across one workshop session using Granola, ChatGPT and Claude.</p>
@@ -495,202 +519,231 @@
       <span class="dot"></span>
       <span>1 prototype, 4 artefacts</span>
     </div>
-  </header>
-
-  <!-- ═══════════════ LEDE ═══════════════ -->
-  <p class="lede">The brief was to use AI to make something genuinely useful for this neighbourhood. The breakout surfaced three pains — surplus food logistics, digital exclusion, and a fragmented mental health signposting landscape with six-week waits. We picked the wellbeing one and built it. Below is everything the workshop produced, in roughly the order it was made.</p>
-
-  <!-- ═══════════════ SECTION 1: WHAT THE ROOM SAID ═══════════════ -->
-  <div class="section-mark">
-    <span class="num">01</span>
-    <span class="label">What the room said</span>
-    <span class="rule"></span>
   </div>
+</header>
 
-  <h2>The breakout, by <span class="ital">theme</span></h2>
-  <p>The session was a mix of community organisations, a venture studio, a VC, and an artistic director. Below is the conversation grouped into the patterns that actually shaped what got built — not in chronological order, but in roughly the order the ideas earned their place.</p>
+<!-- ═══════════════ LEDE ═══════════════ -->
+<div class="lede-band">
+  <div class="container">
+    <p class="lede">The brief was to use AI to make something genuinely useful for this neighbourhood. The breakout surfaced three pains — surplus food logistics, digital exclusion, and a fragmented mental health signposting landscape with six-week waits. We picked the wellbeing one and built it. Below is everything the workshop produced, in roughly the order it was made.</p>
+  </div>
+</div>
 
-  <div class="themes">
+<!-- ═══════════════ SECTION 01 — WHAT THE ROOM SAID ═══════════════ -->
+<section class="section-block">
+  <div class="container">
 
-    <div class="theme">
-      <div class="marker">
-        <span class="num">i.</span>
-        Pain &nbsp;01
-      </div>
-      <div>
-        <h3>Surplus food, last-mile logistics</h3>
-        <p>A local food pantry operates one day a week. Anything unsold and not lasting until the next week gets broadcast through WhatsApp — the call goes out for whoever can grab leftover potatoes or carrots. The bottleneck isn't goodwill, it's logistics: matching food to drivers, in time, at scale.</p>
-      </div>
+    <div class="section-mark">
+      <span class="chip">01</span>
+      <span class="label">What the room said</span>
+      <span class="rule"></span>
     </div>
 
-    <div class="theme">
-      <div class="marker">
-        <span class="num">ii.</span>
-        Pain &nbsp;02
+    <h2>The breakout, by <span class="ital">theme</span></h2>
+    <p>The session was a mix of community organisations, a venture studio, a VC, and an artistic director. Below is the conversation grouped into the patterns that actually shaped what got built — not in chronological order, but in roughly the order the ideas earned their place.</p>
+
+    <div class="themes">
+
+      <div class="theme">
+        <div class="marker">
+          <span class="num">i.</span>
+          Pain &nbsp;01
+        </div>
+        <div>
+          <h3>Surplus food, last-mile logistics</h3>
+          <p>A local food pantry operates one day a week. Anything unsold and not lasting until the next week gets broadcast through WhatsApp — the call goes out for whoever can grab leftover potatoes or carrots. The bottleneck isn't goodwill, it's logistics: matching food to drivers, in time, at scale.</p>
+        </div>
       </div>
-      <div>
-        <h3>Digital exclusion, especially around language</h3>
-        <p>Most council and benefits services have moved online, which filters out elderly residents and people who don't speak English fluently. The Afghan community was named specifically. Across one organisation, staff collectively speak 23 languages — but resources are stretched, and you can't have everyone on shift at once. Translators and family advocates are in short supply.</p>
+
+      <div class="theme">
+        <div class="marker">
+          <span class="num">ii.</span>
+          Pain &nbsp;02
+        </div>
+        <div>
+          <h3>Digital exclusion, especially around language</h3>
+          <p>Most council and benefits services have moved online, which filters out elderly residents and people who don't speak English fluently. The Afghan community was named specifically. Across one organisation, staff collectively speak 23 languages — but resources are stretched, and you can't have everyone on shift at once. Translators and family advocates are in short supply.</p>
+        </div>
       </div>
+
+      <div class="theme">
+        <div class="marker">
+          <span class="num">iii.</span>
+          Pain &nbsp;03
+        </div>
+        <div>
+          <h3>Mental health and the six-week wait</h3>
+          <p>The waiting list for 1-to-1 mental health support runs at six weeks. One organisation has two part-time staff doing visits and demand is rising. Walk-in services and workshops exist; signposting between organisations does happen — but it depends on individual workers happening to know who's offering what this week.</p>
+          <p class="quote">"The waiting lists are quite high. We have a walk-in service and workshops, but getting that one-to-one or even signposting working is hard."</p>
+        </div>
+      </div>
+
+      <div class="theme">
+        <div class="marker">
+          <span class="num">iv.</span>
+          Tension
+        </div>
+        <div>
+          <h3>The instinct to build a platform — and the suspicion of it</h3>
+          <p>Early ideas leaned toward a Camden-wide marketplace: residents and orgs both posting needs and offers, gamified contributions, badges for hours volunteered. But the room kept catching itself. <em>"Once it's, okay, let's build this platform — I already don't want to join it because it's another thing that will spend a lot of information at me."</em></p>
+          <p>Open consumer platforms also raise real safeguarding concerns for residents who are already isolated and vulnerable. Someone offering to come round and cook isn't the same thing as a vetted volunteer. Whoever builds this has to take that seriously.</p>
+        </div>
+      </div>
+
+      <div class="theme">
+        <div class="marker">
+          <span class="num">v.</span>
+          Reframe
+        </div>
+        <div>
+          <h3>Slow time, not fast tools</h3>
+          <p>A counter-current ran through the discussion: instead of chasing speed, what if AI helped Camden <em>slow down?</em> Reframe a food delivery as a slow walk. Reframe a lonely meal as company. Use AI in the background to surface these moments through interfaces residents already use — WhatsApp, voice — rather than adding another app to learn.</p>
+          <p class="quote">"The interface should be agnostic and AI should be in the background. If they know how to use WhatsApp, surface it through WhatsApp."</p>
+        </div>
+      </div>
+
+      <div class="theme">
+        <div class="marker">
+          <span class="num">vi.</span>
+          The shift
+        </div>
+        <div>
+          <h3>From "what should AI do?" to "what admin can we strip out?"</h3>
+          <p>The clearest moment in the breakout: someone naming that you can't have an AI football coach, you can't have an AI sit with someone. The human services have to stay human. But AI can absolutely take the translation, the form-filling, the calendar lookups, the directory-trawling off the humans doing the parts only humans can do.</p>
+          <p class="quote">"What we're trying to create here is connecting people. The services will remain — you cannot get AI to move food or give psychological services. But we can get AI to help knowing that there is a therapist who's taken a sabbatical and has some time."</p>
+        </div>
+      </div>
+
     </div>
 
-    <div class="theme">
-      <div class="marker">
-        <span class="num">iii.</span>
-        Pain &nbsp;03
-      </div>
-      <div>
-        <h3>Mental health and the six-week wait</h3>
-        <p>The waiting list for 1-to-1 mental health support runs at six weeks. One organisation has two part-time staff doing visits and demand is rising. Walk-in services and workshops exist; signposting between organisations does happen — but it depends on individual workers happening to know who's offering what this week.</p>
-        <p class="quote">"The waiting lists are quite high. We have a walk-in service and workshops, but getting that one-to-one or even signposting working is hard."</p>
-      </div>
-    </div>
-
-    <div class="theme">
-      <div class="marker">
-        <span class="num">iv.</span>
-        Tension
-      </div>
-      <div>
-        <h3>The instinct to build a platform — and the suspicion of it</h3>
-        <p>Early ideas leaned toward a Camden-wide marketplace: residents and orgs both posting needs and offers, gamified contributions, badges for hours volunteered. But the room kept catching itself. <em>"Once it's, okay, let's build this platform — I already don't want to join it because it's another thing that will spend a lot of information at me."</em></p>
-        <p>Open consumer platforms also raise real safeguarding concerns for residents who are already isolated and vulnerable. Someone offering to come round and cook isn't the same thing as a vetted volunteer. Whoever builds this has to take that seriously.</p>
-      </div>
-    </div>
-
-    <div class="theme">
-      <div class="marker">
-        <span class="num">v.</span>
-        Reframe
-      </div>
-      <div>
-        <h3>Slow time, not fast tools</h3>
-        <p>A counter-current ran through the discussion: instead of chasing speed, what if AI helped Camden <em>slow down?</em> Reframe a food delivery as a slow walk. Reframe a lonely meal as company. Use AI in the background to surface these moments through interfaces residents already use — WhatsApp, voice — rather than adding another app to learn.</p>
-        <p class="quote">"The interface should be agnostic and AI should be in the background. If they know how to use WhatsApp, surface it through WhatsApp."</p>
-      </div>
-    </div>
-
-    <div class="theme">
-      <div class="marker">
-        <span class="num">vi.</span>
-        The shift
-      </div>
-      <div>
-        <h3>From "what should AI do?" to "what admin can we strip out?"</h3>
-        <p>The clearest moment in the breakout: someone naming that you can't have an AI football coach, you can't have an AI sit with someone. The human services have to stay human. But AI can absolutely take the translation, the form-filling, the calendar lookups, the directory-trawling off the humans doing the parts only humans can do.</p>
-        <p class="quote">"What we're trying to create here is connecting people. The services will remain — you cannot get AI to move food or give psychological services. But we can get AI to help knowing that there is a therapist who's taken a sabbatical and has some time."</p>
-      </div>
+    <div class="convergence">
+      <h4>What the room agreed on by the end</h4>
+      <ul>
+        <li>The interface should sit inside WhatsApp (or whatever residents already use), not a new app</li>
+        <li>The AI's job is matching and admin, not delivering the service itself</li>
+        <li>The strongest version is B2B-light — a flow that connects orgs to each other so a resident on one's six-week list can reach another's spare slot this week</li>
+        <li>Whatever gets built should be scoped narrow enough to test in weeks, not months</li>
+      </ul>
     </div>
 
   </div>
+</section>
 
-  <div class="convergence">
-    <h4>What the room agreed on by the end</h4>
-    <ul>
-      <li>The interface should sit inside WhatsApp (or whatever residents already use), not a new app</li>
-      <li>The AI's job is matching and admin, not delivering the service itself</li>
-      <li>The strongest version is B2B-light — a flow that connects orgs to each other so a resident on one's six-week list can reach another's spare slot this week</li>
-      <li>Whatever gets built should be scoped narrow enough to test in weeks, not months</li>
+<!-- ═══════════════ SECTION 02 — ARTEFACTS ═══════════════ -->
+<section class="section-block alt">
+  <div class="container">
+
+    <div class="section-mark">
+      <span class="chip">02</span>
+      <span class="label">The artefacts</span>
+      <span class="rule"></span>
+    </div>
+
+    <h2>Four things, in the order they were <span class="ital">made</span></h2>
+    <p>Each link below has a one-line "what it is" and, where useful, a slightly longer aside about why it might be the most interesting bit. Skim the asides if you only have a minute — they're where I've put the honest reflection.</p>
+
+    <ul class="artefacts">
+
+      <li class="artefact">
+        <div class="glyph">📋</div>
+        <div class="body">
+          <h3><a href="files/00_workshop_brief.pdf" target="_blank">The original challenge brief<span class="file-badge">PDF</span></a></h3>
+          <p class="desc">The one-page prompt the workshop opened with. Useful as the starting point if you want to run the same exercise with your own group.</p>
+        </div>
+      </li>
+
+      <li class="artefact">
+        <div class="glyph">🌳</div>
+        <div class="body">
+          <h3><a href="files/02_Three_solutions_explored.html" target="_blank">Three solutions, explored<span class="file-badge">Read</span></a></h3>
+          <p class="desc">Pantry Relay, 23 Languages, and One Front Door — one solution per pain. We built the third because it had the broadest reach across all three, but the other two are still on the table.</p>
+        </div>
+      </li>
+
+      <li class="artefact">
+        <div class="glyph">📄</div>
+        <div class="body">
+          <h3><a href="files/03_one_page_brief.docx" download>The one-page brief<span class="file-badge doc">Word</span></a></h3>
+          <p class="desc">The final write-up of One Front Door, designed to land equally well with a frontline worker, a funder, and a tech founder. Pain on the left, solution on the right, what the AI does and doesn't do underneath.</p>
+          <p class="desc aside"><strong>Probably the most reusable thing in this folder.</strong> The structure — pain / solution / role of AI / role of humans / what we'd need to test — is generic. Swap the content and you have a brief for any AI-assisted community service.</p>
+        </div>
+      </li>
+
+      <li class="artefact">
+        <div class="glyph">💬</div>
+        <div class="body">
+          <h3><a href="files/05_Design_prompt_for_mockup.html" target="_blank">The Claude design prompt<span class="file-badge">Read</span></a></h3>
+          <p class="desc">The exact prompt used to generate the mockup. The closest thing to a shareable transcript of how the build was steered — what was specified, what was deliberately excluded, what tone the AI was asked to hold.</p>
+          <p class="desc aside"><strong>Probably the most interesting artefact if you want to replicate this approach with your own org.</strong> Most of the work in getting useful output from Claude is in the prompt, not the chat that follows. This one was first-attempt good because it was specific about visual conventions, scripted the conversation tightly, and named what NOT to produce.</p>
+        </div>
+      </li>
+
     </ul>
   </div>
+</section>
 
-  <!-- ═══════════════ SECTION 2: ARTEFACTS ═══════════════ -->
-  <div class="section-mark">
-    <span class="num">02</span>
-    <span class="label">The artefacts</span>
-    <span class="rule"></span>
-  </div>
+<!-- ═══════════════ SECTION 03 — PROCESS ═══════════════ -->
+<section class="section-block">
+  <div class="container">
 
-  <h2>Four things, in the order they were <span class="ital">made</span></h2>
-  <p>Each link below has a one-line "what it is" and, where useful, a slightly longer aside about why it might be the most interesting bit. Skim the asides if you only have a minute — they're where I've put the honest reflection.</p>
-
-  <ul class="artefacts">
-
-    <li class="artefact">
-      <div class="glyph">📋</div>
-      <div class="body">
-        <h3><a href="files/00_workshop_brief.pdf" target="_blank">The original challenge brief</a></h3>
-        <p class="desc">The one-page prompt the workshop opened with. Useful as the starting point if you want to run the same exercise with your own group.</p>
-      </div>
-    </li>
-
-    <li class="artefact">
-      <div class="glyph">🌳</div>
-      <div class="body">
-        <h3><a href="files/02_Three_solutions_explored.md" target="_blank">Three solutions, explored</a></h3>
-        <p class="desc">Pantry Relay, 23 Languages, and One Front Door — one solution per pain. We built the third because it had the broadest reach across all three, but the other two are still on the table.</p>
-      </div>
-    </li>
-
-    <li class="artefact">
-      <div class="glyph">📄</div>
-      <div class="body">
-        <h3><a href="files/03_one_page_brief.docx">The one-page brief</a></h3>
-        <p class="desc">The final write-up of One Front Door, designed to land equally well with a frontline worker, a funder, and a tech founder. Pain on the left, solution on the right, what the AI does and doesn't do underneath.</p>
-        <p class="desc aside"><strong>Probably the most reusable thing in this folder.</strong> The structure — pain / solution / role of AI / role of humans / what we'd need to test — is generic. Swap the content and you have a brief for any AI-assisted community service.</p>
-      </div>
-    </li>
-
-    <li class="artefact">
-      <div class="glyph">💬</div>
-      <div class="body">
-        <h3><a href="files/05_Design_prompt_for_mockup.md" target="_blank">The Claude design prompt</a></h3>
-        <p class="desc">The exact prompt used to generate the mockup. The closest thing to a shareable transcript of how the build was steered — what was specified, what was deliberately excluded, what tone the AI was asked to hold.</p>
-        <p class="desc aside"><strong>Probably the most interesting artefact if you want to replicate this approach with your own org.</strong> Most of the work in getting useful output from Claude is in the prompt, not the chat that follows. This one was first-attempt good because it was specific about visual conventions, scripted the conversation tightly, and named what NOT to produce.</p>
-      </div>
-    </li>
-
-  </ul>
-
-  <!-- ═══════════════ SECTION 3: THE PROCESS ═══════════════ -->
-  <div class="section-mark">
-    <span class="num">03</span>
-    <span class="label">The shape of the process</span>
-    <span class="rule"></span>
-  </div>
-
-  <h2>What the AI <span class="ital">actually</span> did</h2>
-
-  <p>The workshop framing assigned a role to each tool — Granola to capture, ChatGPT to build, Claude to refine. In practice the lines blurred, but the division of labour held up well.</p>
-
-  <p><strong>Granola</strong> recorded the breakout and produced a transcript clean enough that the three pains could be pulled directly from it without re-listening. It didn't replace note-taking; it removed the friction that usually means notes never get written up. Worth a caveat: Granola's a great tool, but it struggles in larger group conversations where people talk over each other — which we did. Useful for the shape of the discussion, less reliable for exact attribution.</p>
-
-  <p><strong>Claude</strong> did most of the synthesis and production work — drafting the three-solutions document, writing the one-page brief, generating the WhatsApp mockup as working HTML, and packaging this site. The pattern that worked was: feed it the messy human input, ask for a specific output, push back when it produced something generic.</p>
-
-  <div class="pullquote">
-    The bottleneck isn't a shortage of services. It's the friction between a person in distress and the right service for them, this week, in their language.
-    <span class="attribution">— from the one-page brief</span>
-  </div>
-
-  <p>The clearest principle to come out of the breakout — and the one the final solution leans on hardest — is that <strong>AI's job here is admin and matching, not delivery</strong>. You can't have an AI football coach. You can't have an AI sit with someone struggling. But you can have an AI take the translation, the form-filling, the calendar lookups, the directory-trawling off the humans who do the parts only humans can do.</p>
-
-  <!-- ═══════════════ SECTION 4: MOCKUP ═══════════════ -->
-  <div class="section-mark">
-    <span class="num">04</span>
-    <span class="label">The mockup, in situ</span>
-    <span class="rule"></span>
-  </div>
-
-  <h2>What the resident actually <span class="ital">sees</span></h2>
-  <p>A single conversational entry point — over WhatsApp, voice note, or text — in any language. The AI asks two or three clarifying questions and matches the resident to a specific slot available this week. It books it if the org has shared its calendar; otherwise it gives the right phone number and what to ask for. No new app to learn.</p>
-
-  <div class="mockup-frame">
-    <div style="width: 100%;">
-      <div class="mockup-caption"><strong>FIG. 01</strong> Interactive prototype · scroll inside the phone</div>
-      <iframe src="mockup.html" style="display: block; margin: 0 auto; border: none; width: 430px; height: 880px; max-width: 100%;" title="One Front Door WhatsApp mockup"></iframe>
+    <div class="section-mark">
+      <span class="chip">03</span>
+      <span class="label">The shape of the process</span>
+      <span class="rule"></span>
     </div>
+
+    <h2>What the AI <span class="ital">actually</span> did</h2>
+
+    <p>The workshop framing assigned a role to each tool — Granola to capture, ChatGPT to build, Claude to refine. In practice the lines blurred, but the division of labour held up well.</p>
+
+    <p><strong>Granola</strong> recorded the breakout and produced a transcript clean enough that the three pains could be pulled directly from it without re-listening. It didn't replace note-taking; it removed the friction that usually means notes never get written up. Worth a caveat: Granola's a great tool, but it struggles in larger group conversations where people talk over each other — which we did. Useful for the shape of the discussion, less reliable for exact attribution.</p>
+
+    <p><strong>Claude</strong> did most of the synthesis and production work — drafting the three-solutions document, writing the one-page brief, generating the WhatsApp mockup as working HTML, and packaging this site. The pattern that worked was: feed it the messy human input, ask for a specific output, push back when it produced something generic.</p>
+
+    <div class="pullquote">
+      The bottleneck isn't a shortage of services. It's the friction between a person in distress and the right service for them, this week, in their language.
+      <span class="attribution">— from the one-page brief</span>
+    </div>
+
+    <p>The clearest principle to come out of the breakout — and the one the final solution leans on hardest — is that <strong>AI's job here is admin and matching, not delivery</strong>. You can't have an AI football coach. You can't have an AI sit with someone struggling. But you can have an AI take the translation, the form-filling, the calendar lookups, the directory-trawling off the humans who do the parts only humans can do.</p>
+
   </div>
+</section>
 
-  <p style="text-align: center; font-size: 14px; color: var(--ink-faded); margin-top: -24px;">If the mockup isn't loading, <a href="mockup.html" target="_blank" style="color: var(--accent);">open it in a new tab</a>.</p>
+<!-- ═══════════════ SECTION 04 — MOCKUP ═══════════════ -->
+<section class="section-block gold-tint">
+  <div class="container">
 
-  <!-- ═══════════════ FOOTER ═══════════════ -->
-  <footer>
-    <p>Compiled by Richard Basteed, Bloomsbury Football Foundation. Process and artefacts free to fork, copy, adapt — particularly if you're running similar workshops in your own community.</p>
+    <div class="section-mark">
+      <span class="chip">04</span>
+      <span class="label">The mockup, in situ</span>
+      <span class="rule"></span>
+    </div>
+
+    <h2>What the resident actually <span class="ital">sees</span></h2>
+    <p>A single conversational entry point — over WhatsApp, voice note, or text — in any language. The AI asks two or three clarifying questions and matches the resident to a specific slot available this week. It books it if the org has shared its calendar; otherwise it gives the right phone number and what to ask for. No new app to learn.</p>
+
+    <div class="mockup-frame">
+      <div style="width: 100%;">
+        <div class="mockup-caption"><strong>FIG. 01</strong> Interactive prototype · scroll inside the phone</div>
+        <iframe src="mockup.html" style="display: block; margin: 0 auto; border: none; width: 430px; height: 880px; max-width: 100%;" title="One Front Door WhatsApp mockup"></iframe>
+      </div>
+    </div>
+
+    <p style="text-align: center; font-size: 14px; color: var(--ink-faded); margin-top: -16px;">If the mockup isn't loading, <a href="mockup.html" target="_blank" style="color: var(--purple);">open it in a new tab</a>.</p>
+
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="container">
+    <span class="footer-brand">Phoenix Court Works</span>
+    <p>Compiled by Richard Basteed, Bloomsbury Football Foundation, for <a href="https://www.phoenixcourt.vc/phoenix-court-works" target="_blank">Phoenix Court Works</a>. Process and artefacts free to fork, copy, adapt — particularly if you're running similar workshops in your own community.</p>
     <p>The matching engine described here is structurally the same one Pantry Relay and 23 Languages would use. Build one well and the other two get easier.</p>
     <p class="colophon">Set in Fraunces &amp; Inter · April 2026 · v2</p>
-  </footer>
-
-</div>
+  </div>
+</footer>
 
 </body>
 </html>

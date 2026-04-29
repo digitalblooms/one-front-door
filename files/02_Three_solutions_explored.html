@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Solutions Explored — Phoenix Court Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF9F7;
+    --ink: #1E0A3C;
+    --ink-soft: #4A3968;
+    --ink-faded: #8B7BA8;
+    --purple: #6820A4;
+    --purple-dark: #1C0840;
+    --gold: #E8B830;
+    --rule: #DDD5EE;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+  .page-header {
+    background: var(--purple-dark);
+    padding: 40px 0;
+  }
+  .page-header .container {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .back-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.8;
+  }
+  .back-link:hover { opacity: 1; }
+  .back-link::before { content: '← '; }
+  .page-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .content { padding: 64px 0 80px; }
+  .doc-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(36px, 6vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 12px;
+    font-variation-settings: "opsz" 72;
+  }
+  .doc-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-faded);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .intro {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    font-variation-settings: "opsz" 36;
+  }
+  .principle {
+    margin: 32px 0 48px;
+    padding: 20px 24px;
+    background: rgba(104,32,164,0.06);
+    border-left: 3px solid var(--purple);
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .principle strong { font-weight: 600; }
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 52px 0;
+  }
+  .solution {
+    margin-bottom: 0;
+  }
+  .solution-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .solution-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    flex-shrink: 0;
+  }
+  .solution-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    background: var(--purple-dark);
+    color: var(--gold);
+    border-radius: 2px;
+  }
+  h2.solution-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 4px;
+    font-variation-settings: "opsz" 48;
+  }
+  .solution-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink-faded);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+  h3.field {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin: 24px 0 8px;
+    font-weight: 500;
+  }
+  p { color: var(--ink-soft); margin-bottom: 16px; line-height: 1.65; }
+  p strong { color: var(--ink); font-weight: 600; }
+  .example {
+    margin: 16px 0 24px;
+    background: var(--purple-dark);
+    border-radius: 4px;
+    padding: 20px 24px;
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    line-height: 1.6;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .example .ex-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 14px;
+    opacity: 0.8;
+  }
+  .example p { color: rgba(255,255,255,0.8); font-family: 'JetBrains Mono', monospace; font-size: 14px; margin-bottom: 10px; }
+  .example p:last-child { margin-bottom: 0; }
+  blockquote {
+    border-left: 2px solid var(--gold);
+    padding-left: 16px;
+    margin: 16px 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.55;
+    font-variation-settings: "opsz" 24;
+  }
+  .why-chosen {
+    margin-top: 52px;
+    padding: 32px 36px;
+    background: rgba(232,184,48,0.07);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+  .why-chosen h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 12px;
+    font-variation-settings: "opsz" 36;
+  }
+  .why-chosen p { color: var(--ink-soft); margin-bottom: 0; }
+  @media (max-width: 600px) {
+    .container { padding: 0 20px; }
+    .content { padding: 48px 0 60px; }
+    .doc-title { font-size: 32px; }
+    h2.solution-name { font-size: 24px; }
+    .example { padding: 16px 18px; }
+    .why-chosen { padding: 24px 22px; margin: 0 -20px; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="container">
+    <a href="../index.html" class="back-link">Workshop write-up</a>
+    <span class="page-label">Artefact 02 of 04</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="content">
+
+    <h1 class="doc-title">Three Solutions Explored</h1>
+    <p class="doc-meta">Generated from the Breakout Room &lt;&gt; Neighbourhood Labs session · 28 April 2026</p>
+
+    <p class="intro">The breakout surfaced three distinct pains in the room. Below is one focused solution per pain — each small enough to test in a week, each playing to AI's real strength (admin and matching) without pretending it can replace the humans doing the actual work.</p>
+
+    <div class="principle">
+      A shared design principle came out of the room: <strong>don't build another app — surface through WhatsApp or whatever residents already use.</strong>
+    </div>
+
+    <hr>
+
+    <!-- Solution 1 -->
+    <div class="solution">
+      <div class="solution-header">
+        <span class="solution-num">Solution 01</span>
+      </div>
+      <h2 class="solution-name">"Pantry Relay"</h2>
+      <p class="solution-sub">A WhatsApp-first surplus food matcher</p>
+
+      <h3 class="field">The pain</h3>
+      <p>Cook for Good and local pantries have surplus food appearing at unpredictable moments. The current workflow is a WhatsApp broadcast and hope someone with a car sees it in time. Logistics — not goodwill — is the bottleneck.</p>
+
+      <h3 class="field">What it does</h3>
+      <p>A pantry coordinator sends one WhatsApp message to a bot: <em>"40 hot meals, ready 6pm, need collected from Marchmont St, can split."</em> The AI parses it into structured fields (quantity, pickup window, location, divisible yes/no), then pushes a tailored alert to a pre-vetted list of drivers and receiving orgs whose stated availability matches. Drivers reply "yes" to claim a portion. The bot confirms back to the coordinator.</p>
+
+      <div class="example">
+        <span class="ex-label">Example — what the coordinator sees in WhatsApp</span>
+        <p>✅ Logged: 40 meals, 6pm pickup, Marchmont St</p>
+        <p>Alerted 7 drivers within 1km radius and free this evening</p>
+        <p>6:08pm — Aisha (car, Somers Town) claimed 15</p>
+        <p>6:11pm — Tom (bike, Bloomsbury) claimed 10</p>
+        <p>15 meals still unclaimed — broadening alert to 2km</p>
+      </div>
+
+      <h3 class="field">Reusable how</h3>
+      <p>Twilio + Claude API setup; any borough or food network with a WhatsApp group already in flight can swap in their own driver list and pickup locations. No new app for residents to learn.</p>
+    </div>
+
+    <hr>
+
+    <!-- Solution 2 -->
+    <div class="solution">
+      <div class="solution-header">
+        <span class="solution-num">Solution 02</span>
+      </div>
+      <h2 class="solution-name">"23 Languages"</h2>
+      <p class="solution-sub">A multilingual form-and-letter helper</p>
+
+      <h3 class="field">The pain</h3>
+      <p>Elderly and non-English-speaking residents — the Afghan community was named specifically — are locked out of housing, benefits, and council services that have moved online. Staff collectively speak 23 languages but can't always cover demand. Letters arrive in English; forms are in English; the digital front door is a wall.</p>
+
+      <h3 class="field">What it does</h3>
+      <p>A community champion (or the resident themselves, on a shared device at a community centre) photographs an English letter or form. Claude translates it into the resident's language, <em>explains what it actually means in plain terms</em>, flags any deadlines, and drafts a reply or fills the form based on a short voice conversation in the resident's language. The champion reviews before anything is submitted. AI absorbs the translation and form-filling admin; the human stays in the loop on judgement and safeguarding.</p>
+
+      <div class="example">
+        <span class="ex-label">Example — a resident brings in a Universal Credit letter</span>
+        <p><strong style="color: rgba(255,255,255,0.5);">Original (English):</strong> "You must verify your identity within 14 days or your claim will be suspended."</p>
+        <p><strong style="color: rgba(255,255,255,0.5);">In Dari:</strong> [translated text]</p>
+        <p><strong style="color: rgba(255,255,255,0.5);">What this means:</strong> The DWP needs to confirm who you are. If you don't reply by 12 May, your benefit payments stop.</p>
+        <p><strong style="color: rgba(255,255,255,0.5);">What to do:</strong> Bring your passport or biometric residence permit to your nearest Jobcentre, or upload a photo on the GOV.UK site. I can help you do this now if you'd like.</p>
+      </div>
+
+      <h3 class="field">Reusable how</h3>
+      <p>Runs as a simple web tool any community organisation can load on a tablet. The "trusted human reviews before send" pattern is the safeguarding answer to the open-consumer-platform risk the room flagged.</p>
+    </div>
+
+    <hr>
+
+    <!-- Solution 3 -->
+    <div class="solution">
+      <div class="solution-header">
+        <span class="solution-num">Solution 03</span>
+        <span class="solution-badge">Selected for development</span>
+      </div>
+      <h2 class="solution-name">"One Front Door"</h2>
+      <p class="solution-sub">A wellbeing signposter with a 30-second triage</p>
+
+      <h3 class="field">The pain</h3>
+      <p>Six-week wait for 1-to-1 mental health support. Multiple directories exist (Camden Council, Mind, GP referrals, peer groups, wellbeing cafés) but no single accessible multilingual entry point. Residents bounce between options and give up.</p>
+
+      <h3 class="field">What it does</h3>
+      <p>A resident sends a voice note or text — in any language — describing how they're feeling and what kind of help they want. The AI doesn't diagnose. It asks two or three clarifying questions, then signposts to the <em>closest match available now</em>: a peer support group meeting Thursday, a wellbeing café with a free slot Tuesday, a crisis line if the language flags risk. It books the slot if the org has shared its calendar; otherwise it gives the right phone number and what to ask for.</p>
+
+      <div class="example">
+        <span class="ex-label">Example — resident texts: "I haven't really spoken to anyone in two weeks and I keep crying"</span>
+        <p>That sounds really hard. Two quick questions so I point you to the right thing:</p>
+        <p>1. Would you rather talk one-to-one, or be around other people doing something together?</p>
+        <p>2. Are you free this week, or is next week better?</p>
+        <p><em style="color: rgba(255,255,255,0.5);">[resident replies: "around people, this week"]</em></p>
+        <p>Three options near you this week:</p>
+        <p>• <strong style="color: #fff;">Wellbeing Café, Camden Town</strong> — Tues 2pm, free, drop-in, no booking needed</p>
+        <p>• <strong style="color: #fff;">Walk &amp; Talk group, Regent's Park</strong> — Wed 10am, 4 spaces left</p>
+        <p>• <strong style="color: #fff;">Cook for Good community lunch</strong> — Fri 12pm, free</p>
+        <p>If at any point you feel unsafe, Samaritans is 116 123, free, 24/7.</p>
+      </div>
+
+      <h3 class="field">Reusable how</h3>
+      <p>Same matching engine as the food relay, just pointed at wellbeing slots instead of meals. This is where the broader "Camden Task" idea from the room earns its keep — but scoped to one domain (wellbeing) so it's testable in a week, not a year.</p>
+    </div>
+
+    <div class="why-chosen">
+      <h3>Why Solution 3 was chosen</h3>
+      <p>The group picked this one because it had the broadest reach across the pains the room actually surfaced — language access, the six-week wait, and fragmented directories — while still being scopeable to a four-week pilot. Solutions 1 and 2 remain valid candidates for follow-on builds. The matching engine underneath all three is structurally the same; building one well unlocks the others.</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
