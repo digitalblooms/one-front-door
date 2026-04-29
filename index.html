@@ -92,6 +92,23 @@
     text-transform: uppercase;
     color: rgba(255,255,255,0.4);
   }
+  .pcw-logo-coin {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+  }
+  .pcw-logo-coin img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 
   h1 {
     font-family: 'Fraunces', serif;
@@ -444,15 +461,34 @@
     padding: 60px 0 80px;
   }
   .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule-on-dark);
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--gold);
-    display: block;
-    margin-bottom: 28px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid var(--rule-on-dark);
+  }
+  .footer-logo-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #fff;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+  }
+  .footer-logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   footer p { color: rgba(255,255,255,0.5); margin-bottom: 14px; }
   footer a { color: rgba(255,255,255,0.75); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); }
@@ -506,6 +542,7 @@
 <header class="hero">
   <div class="container">
     <div class="pcw-badge">
+      <span class="pcw-logo-coin"><img src="files/Phoenix-Court-Works.jpg" alt="Phoenix Court Works"></span>
       <span class="org">Phoenix Court Works</span>
       <span class="sep"></span>
       <span class="meta">Workshop No. 04 · April 2026</span>
@@ -738,7 +775,10 @@
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
   <div class="container">
-    <span class="footer-brand">Phoenix Court Works</span>
+    <div class="footer-brand">
+      <div class="footer-logo-wrap"><img src="files/Phoenix-Court-Works.jpg" alt=""></div>
+      <span>Phoenix Court Works</span>
+    </div>
     <p>Compiled by Richard Basteed, Bloomsbury Football Foundation, for <a href="https://www.phoenixcourt.vc/phoenix-court-works" target="_blank">Phoenix Court Works</a>. Process and artefacts free to fork, copy, adapt — particularly if you're running similar workshops in your own community.</p>
     <p>The matching engine described here is structurally the same one Pantry Relay and 23 Languages would use. Build one well and the other two get easier.</p>
     <p class="colophon">Set in Fraunces &amp; Inter · April 2026 · v2</p>
