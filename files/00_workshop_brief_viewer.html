@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop Brief — Phoenix Court Works</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1C0840; font-family: -apple-system, 'Inter', sans-serif; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+  .bar {
+    background: #1C0840;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 0 20px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    gap: 16px;
+  }
+  .back {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #E8B830;
+    text-decoration: none;
+    opacity: 0.8;
+    white-space: nowrap;
+  }
+  .back:hover { opacity: 1; }
+  .back::before { content: '← '; }
+  .title {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .dl {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .dl:hover { border-color: #E8B830; color: #E8B830; }
+  .viewer { flex: 1; width: 100%; border: none; display: block; }
+  .fallback {
+    display: none;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 40px;
+  }
+  .fallback p { font-size: 15px; line-height: 1.6; max-width: 360px; }
+  .fallback a {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #E8B830;
+    text-decoration: none;
+    padding: 10px 22px;
+    border: 1px solid rgba(232,184,48,0.5);
+    border-radius: 2px;
+  }
+  .fallback a:hover { background: rgba(232,184,48,0.08); }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a href="../index.html" class="back">Workshop write-up</a>
+  <span class="title">Workshop Brief · PDF</span>
+  <a href="00_workshop_brief.pdf" download class="dl">Download</a>
+</div>
+
+<object data="00_workshop_brief.pdf" type="application/pdf" class="viewer"
+  onload="this.style.display='block'"
+  onerror="this.style.display='none'; document.querySelector('.fallback').style.display='flex'">
+  <div class="fallback" style="display:flex">
+    <p>Your browser doesn't display PDFs inline. Use the button below to download it.</p>
+    <a href="00_workshop_brief.pdf" download>Download PDF</a>
+  </div>
+</object>
+
+<div class="fallback"></div>
+
+<script>
+  // Safari and mobile often fail silently on <object> — detect and fallback
+  const obj = document.querySelector('object');
+  setTimeout(() => {
+    try {
+      if (!obj.contentDocument && !obj.getSVGDocument()) {
+        obj.style.display = 'none';
+        document.querySelectorAll('.fallback')[1].style.display = 'flex';
+      }
+    } catch(e) {}
+  }, 2000);
+</script>
+
+</body>
+</html>
