@@ -15,8 +15,10 @@ Everything the workshop produced is on the live site, organised as:
 
 1. **What the room said** — the breakout discussion, grouped by theme
 2. **The artefacts** — the brief, the three solutions explored, the design prompt
-3. **The shape of the process** — how the three tools (Granola, ChatGPT, Claude) divided the work
-4. **The mockup, in situ** — an interactive WhatsApp prototype of the service
+3. **Why this won** — the three solutions side by side, scorecard, and the call
+4. **How the prototype was designed** — every choice in the mockup, and why
+5. **The shape of the process** — how the three tools (Granola, ChatGPT, Claude) divided the work
+6. **The mockup, in situ** — an interactive WhatsApp prototype of the service
 
 ## What's in this repo
 

@@ -59,6 +59,8 @@
       radial-gradient(ellipse at 85% 10%, rgba(232,184,48,0.14) 0%, transparent 45%),
       radial-gradient(ellipse at 15% 90%, rgba(139,45,200,0.25) 0%, transparent 45%);
     pointer-events: none;
+    transform: translateY(var(--parallax, 0px));
+    will-change: transform;
   }
   .hero .container { position: relative; z-index: 1; }
 
@@ -502,6 +504,214 @@
     color: rgba(255,255,255,0.2);
   }
 
+  /* ───── Solution comparison cards ───── */
+  .comparison {
+    margin: 32px 0 8px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .candidate {
+    padding: 32px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .candidate:last-child { border-bottom: 1px solid var(--rule); }
+  .candidate-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .candidate-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--ink-faded);
+    line-height: 1;
+    font-variation-settings: "opsz" 60;
+  }
+  .candidate-head h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.15;
+    color: var(--ink);
+    flex: 1;
+    font-variation-settings: "opsz" 36;
+  }
+  .candidate-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .candidate-tag.shelved {
+    color: var(--ink-faded);
+    border: 1px solid var(--rule);
+    background: transparent;
+  }
+  .candidate-tag.chosen {
+    color: #fff;
+    background: var(--purple);
+    border: 1px solid var(--purple);
+  }
+  .candidate p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .candidate p:last-child { margin-bottom: 0; }
+  .candidate .verdict {
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: var(--paper-deep);
+    border-radius: 4px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+    border-left: 2px solid var(--rule);
+  }
+  .candidate .verdict strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--purple);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .candidate.chosen .verdict {
+    background: #FBF1E0;
+    border-left-color: var(--purple);
+  }
+
+  /* ───── Scorecard table ───── */
+  .scorecard {
+    margin: 32px 0;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+  }
+  .scorecard th, .scorecard td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .scorecard thead th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 500;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 12px;
+  }
+  .scorecard tbody th {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--ink);
+    width: 38%;
+  }
+  .scorecard td {
+    color: var(--ink-soft);
+    text-align: center;
+    font-weight: 500;
+  }
+  .scorecard .score-y { color: var(--purple); }
+  .scorecard .score-p { color: #B8911C; }
+  .scorecard .score-n { color: var(--ink-faded); }
+  .scorecard td.chosen-col {
+    background: rgba(104, 32, 164, 0.04);
+  }
+
+  /* ───── Decision blocks ───── */
+  .decisions {
+    margin: 32px 0 16px;
+  }
+  .decision {
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .decision:last-child { border-bottom: 1px solid var(--rule); }
+  .decision-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--purple);
+    font-weight: 500;
+  }
+  .decision h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.25;
+    color: var(--ink);
+    font-variation-settings: "opsz" 36;
+    margin: 0;
+  }
+  .decision .versus {
+    display: grid;
+    grid-template-columns: 1fr 30px 1fr;
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 4px;
+  }
+  .decision .option {
+    padding: 16px 18px;
+    background: var(--paper-deep);
+    border-radius: 4px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .decision .option .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .decision .option.picked {
+    background: #FBF1E0;
+    color: var(--ink);
+  }
+  .decision .option.picked .label { color: var(--purple); }
+  .decision .versus-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-faded);
+  }
+  .decision .why {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .decision .why strong {
+    color: var(--ink);
+  }
+
   /* ───── Animations ───── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(14px); }
@@ -533,6 +743,89 @@
     .mockup-frame { padding: 28px 0; margin: 32px -20px; border-radius: 0; }
     .pcw-badge { flex-wrap: wrap; gap: 8px; }
     .pcw-badge .sep { display: none; }
+    .candidate-head { gap: 12px; }
+    .candidate-num { font-size: 32px; }
+    .candidate-head h3 { font-size: 22px; }
+    .candidate-tag { font-size: 9.5px; padding: 3px 8px; }
+    .scorecard { font-size: 13px; }
+    .scorecard th, .scorecard td { padding: 10px 6px; }
+    .scorecard tbody th { width: 42%; font-size: 13.5px; }
+    .scorecard thead th { font-size: 9.5px; }
+    .decision .versus { grid-template-columns: 1fr; gap: 8px; }
+    .decision .versus-mark { padding: 4px 0; transform: rotate(90deg); }
+  }
+
+  /* ───── Scroll progress bar ───── */
+  .scroll-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, var(--purple), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: 1000;
+    will-change: transform;
+  }
+
+  /* ───── Scroll reveals ───── */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    .section-mark .chip {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .section-mark .label {
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.4s ease 0.08s, transform 0.4s ease 0.08s;
+    }
+    .section-mark .rule {
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+    }
+    .section-mark.is-visible .chip,
+    .section-mark.is-visible .label {
+      opacity: 1;
+      transform: none;
+    }
+    .section-mark.is-visible .rule {
+      transform: scaleX(1);
+    }
+    .pullquote {
+      opacity: 0;
+      transform: translateX(-12px);
+      transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pullquote.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    .convergence {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .convergence.is-visible {
+      opacity: 1;
+      transform: none;
+    }
   }
 </style>
 </head>
@@ -719,12 +1012,265 @@
   </div>
 </section>
 
-<!-- ═══════════════ SECTION 03 — PROCESS ═══════════════ -->
-<section class="section-block">
+<!-- ═══════════════ SECTION 03 — WHY THIS WON ═══════════════ -->
+<section class="section-block alt">
   <div class="container">
 
     <div class="section-mark">
       <span class="chip">03</span>
+      <span class="label">Why this won</span>
+      <span class="rule"></span>
+    </div>
+
+    <h2>Three solutions, one <span class="ital">picked</span></h2>
+    <p>The breakout surfaced three distinct pains, and the instinct was to build something for each. By the end of the session we had three sketches. Picking one to actually build wasn't obvious — they all addressed real needs, all played to AI's genuine strengths, all could ship in weeks rather than months. What follows is how we chose.</p>
+
+    <p>The shorthand: each candidate was scored on five things — depth of pain, breadth of reach, what AI uniquely unlocks, safeguarding load, and how testable it is in four weeks. The third option won on three of the five. The other two stay alive as future builds, and the matching engine underneath all three is structurally the same, so building one well makes the others cheaper.</p>
+
+    <div class="comparison">
+
+      <div class="candidate">
+        <div class="candidate-head">
+          <span class="candidate-num">i.</span>
+          <h3>Pantry Relay</h3>
+          <span class="candidate-tag shelved">Shelved for now</span>
+        </div>
+        <p>A WhatsApp-first surplus-food matcher. A pantry coordinator messages a bot — <em>"40 hot meals, ready 6pm, need collected, can split"</em> — and the AI parses it into structured fields, alerts pre-vetted drivers whose stated availability matches, and reports back to the coordinator as portions get claimed.</p>
+        <p>The pain is real, the AI's job is unambiguous (parse + match + notify), and Cook for Good were in the room ready to pilot. It nearly won on testability alone.</p>
+        <div class="verdict">
+          <strong>Why not now</strong>
+          Narrow user base by design — a handful of pantry coordinators and drivers. Strong as a pilot, but the workshop's ambition was to demonstrate something with broad neighbourhood relevance. Pantry Relay solves a logistics problem; the room's deeper concern was about residents who can't reach services at all.
+        </div>
+      </div>
+
+      <div class="candidate">
+        <div class="candidate-head">
+          <span class="candidate-num">ii.</span>
+          <h3>23 Languages</h3>
+          <span class="candidate-tag shelved">Shelved for now</span>
+        </div>
+        <p>A multilingual form-and-letter helper. A community champion photographs an English letter or form. The AI translates it, explains what it actually means in plain terms, flags deadlines, and drafts a reply or fills the form via a short voice conversation in the resident's language. The champion reviews everything before submission.</p>
+        <p>This was the closest runner-up. The pain is acute, AI translation is genuinely strong, and the "trusted human reviews before send" pattern answers the safeguarding question cleanly.</p>
+        <div class="verdict">
+          <strong>Why not now</strong>
+          High safeguarding load. Form-filling and benefit letters are exactly the situations where mistakes have material consequences — wrong field, missed deadline, suspended claim. Doing this responsibly needs a careful pilot with caseworker oversight, which is more setup than a four-week test allows. Worth doing properly later, not quickly now.
+        </div>
+      </div>
+
+      <div class="candidate chosen">
+        <div class="candidate-head">
+          <span class="candidate-num">iii.</span>
+          <h3>One Front Door</h3>
+          <span class="candidate-tag chosen">Chosen</span>
+        </div>
+        <p>A wellbeing signposter inside WhatsApp. A resident describes how they're feeling, in any language. The AI runs a 30-second triage — language, kind of help, when — and matches them to a specific service slot available this week. It doesn't diagnose. It signposts.</p>
+        <p>The win condition wasn't ambition. It was that this candidate solved across all three pains at once: it's a directory tool (mental health), a language tool (multilingual entry), and a friction-reducer (the six-week wait gets shorter when peer support, drop-ins, and group activities are surfaced alongside 1-to-1).</p>
+        <div class="verdict">
+          <strong>Why this</strong>
+          Broadest reach with the lowest safeguarding ceiling. Signposting to existing, vetted services is a fundamentally lower-risk operation than form-filling or food delivery — the AI is matching to options the orgs already approve. And the matching engine, once built, generalises. Pantry Relay and 23 Languages would use the same core. Build this first, the others get cheaper.
+        </div>
+      </div>
+
+    </div>
+
+    <h2 style="margin-top: 56px;">The scorecard, <span class="ital">honestly</span></h2>
+    <p>The matrix below is what was on the whiteboard by the end. Some calls were close, and the language column is where Pantry Relay genuinely lost — it doesn't unlock anything multilingual residents couldn't already do. Where two candidates tied, the tiebreaker was which one the room could most easily imagine ten of us using with our own mums tomorrow.</p>
+
+    <table class="scorecard">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Pantry Relay</th>
+          <th>23 Languages</th>
+          <th class="chosen-col">One Front Door</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Depth of pain</th>
+          <td><span class="score-p">High</span></td>
+          <td><span class="score-y">Acute</span></td>
+          <td class="chosen-col"><span class="score-y">Acute</span></td>
+        </tr>
+        <tr>
+          <th>Breadth of reach</th>
+          <td><span class="score-n">Narrow</span></td>
+          <td><span class="score-p">Specific</span></td>
+          <td class="chosen-col"><span class="score-y">Broad</span></td>
+        </tr>
+        <tr>
+          <th>What AI uniquely unlocks</th>
+          <td><span class="score-y">Clear</span></td>
+          <td><span class="score-y">Clear</span></td>
+          <td class="chosen-col"><span class="score-y">Clear</span></td>
+        </tr>
+        <tr>
+          <th>Safeguarding load</th>
+          <td><span class="score-y">Low</span></td>
+          <td><span class="score-n">High</span></td>
+          <td class="chosen-col"><span class="score-p">Medium</span></td>
+        </tr>
+        <tr>
+          <th>Testable in 4 weeks</th>
+          <td><span class="score-y">Yes</span></td>
+          <td><span class="score-p">Tight</span></td>
+          <td class="chosen-col"><span class="score-y">Yes</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The other thing the matrix flatters into clarity: One Front Door is the only candidate where you could imagine the same engine, lightly reskinned, doing the other two jobs later. A signposter that matches residents to wellbeing slots is a matching engine plus a wellbeing-shaped data set. Swap the data set for "surplus food and drivers" and you have Pantry Relay. Swap it for "letters that need explaining," and you're closer to 23 Languages than you'd think. The pick wasn't just about today; it was about what gets unlocked next.</p>
+
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 04 — PROTOTYPE DESIGN ═══════════════ -->
+<section class="section-block">
+  <div class="container">
+
+    <div class="section-mark">
+      <span class="chip">04</span>
+      <span class="label">How the prototype was designed</span>
+      <span class="rule"></span>
+    </div>
+
+    <h2>Every choice in the mockup, and <span class="ital">why</span></h2>
+    <p>The WhatsApp prototype looks simple, but each surface decision is doing work. What follows is the design rationale, choice by choice. If you fork this, these are the decisions you'd want to revisit in your own context — they're not obvious, and a few are deliberately controversial.</p>
+
+    <div class="decisions">
+
+      <div class="decision">
+        <div class="decision-head">Decision · 01</div>
+        <h3>WhatsApp, not a custom app</h3>
+        <div class="versus">
+          <div class="option">
+            <span class="label">Considered</span>
+            A bespoke web app or PWA, branded for the neighbourhood, indexed in app stores
+          </div>
+          <div class="versus-mark">→</div>
+          <div class="option picked">
+            <span class="label">Picked</span>
+            WhatsApp Business API, surfaced as a verified service account
+          </div>
+        </div>
+        <p class="why"><strong>Why.</strong> Adoption is the only metric that matters for a signposter. Every new app installed is a barrier; every familiar interface is a bridge. The room kept returning to a line that became the design's north star: <em>"the interface should be agnostic and AI should be in the background."</em> WhatsApp is already on the phones of the elderly residents, the non-English-speaking residents, and the parents the service most needs to reach. A custom app filters out exactly the people the brief is for.</p>
+      </div>
+
+      <div class="decision">
+        <div class="decision-head">Decision · 02</div>
+        <h3>The triage is two questions, not seven</h3>
+        <div class="versus">
+          <div class="option">
+            <span class="label">Considered</span>
+            A thorough intake form covering symptoms, history, severity, location, language, age, support network
+          </div>
+          <div class="versus-mark">→</div>
+          <div class="option picked">
+            <span class="label">Picked</span>
+            Two clarifying questions max, from a pool the AI selects from contextually
+          </div>
+        </div>
+        <p class="why"><strong>Why.</strong> The mockup asks <em>"one-to-one or around people?"</em> and <em>"this week or next?"</em> — that's it. A longer triage is more accurate but exponentially less likely to be completed by someone in distress. The cost of a slightly worse match is one missed session; the cost of an abandoned conversation is the entire person walking away. Designing for completion rate over precision is the right trade in this domain.</p>
+      </div>
+
+      <div class="decision">
+        <div class="decision-head">Decision · 03</div>
+        <h3>Three options, not ten</h3>
+        <div class="versus">
+          <div class="option">
+            <span class="label">Considered</span>
+            A scrollable list of every available service that matches, ranked by relevance
+          </div>
+          <div class="versus-mark">→</div>
+          <div class="option picked">
+            <span class="label">Picked</span>
+            Exactly three concrete options, each with a real day, time, and one-line description
+          </div>
+        </div>
+        <p class="why"><strong>Why.</strong> Decision paralysis is the second-largest barrier to taking up support, after access itself. Three is the upper limit at which a person under load can hold options in their head and choose. More than three turns into a directory — which is what the room said already exists, and isn't being used. The list is meant to feel like a friend texting you suggestions, not like searching a database.</p>
+      </div>
+
+      <div class="decision">
+        <div class="decision-head">Decision · 04</div>
+        <h3>The Samaritans line lives in every list, quietly</h3>
+        <div class="versus">
+          <div class="option">
+            <span class="label">Considered</span>
+            A separate "are you in crisis?" flow triggered only by detected risk language
+          </div>
+          <div class="versus-mark">→</div>
+          <div class="option picked">
+            <span class="label">Picked</span>
+            A persistent, low-key Samaritans footer on every options message, regardless of triage path
+          </div>
+        </div>
+        <p class="why"><strong>Why.</strong> Risk detection is fragile. Someone can be in crisis without using the words a classifier expects, and the consequences of a missed detection are severe. Persistent visibility — softly worded, not alarming — costs nothing for the 99 out of 100 conversations that aren't crises, and is potentially life-relevant for the one that is. The decision was inspired by the way good barbers and good GPs operate: the door's always open, you don't have to perform distress to be allowed through it.</p>
+      </div>
+
+      <div class="decision">
+        <div class="decision-head">Decision · 05</div>
+        <h3>Aisha is named, the booking is confirmed</h3>
+        <div class="versus">
+          <div class="option">
+            <span class="label">Considered</span>
+            A generic "see you Tuesday at 2pm" confirmation
+          </div>
+          <div class="versus-mark">→</div>
+          <div class="option picked">
+            <span class="label">Picked</span>
+            A specific volunteer's name, with a relevant detail about them ("speaks Dari and Arabic too")
+          </div>
+        </div>
+        <p class="why"><strong>Why.</strong> This is the moment the prototype most needs to do work. A person who has just told a stranger they've been crying for two weeks needs to be handed off to another person, not into another transaction. Naming Aisha turns the destination from <em>"a service"</em> into <em>"someone."</em> The language detail isn't decoration — it's a quiet signal that the system noticed who the resident is, and matched accordingly. This is where the human-in-the-loop principle stops being abstract.</p>
+      </div>
+
+      <div class="decision">
+        <div class="decision-head">Decision · 06</div>
+        <h3>Verified service account badge, "Service account" status</h3>
+        <div class="versus">
+          <div class="option">
+            <span class="label">Considered</span>
+            Disguising the AI as a person, or making it feel like a friendly mascot
+          </div>
+          <div class="versus-mark">→</div>
+          <div class="option picked">
+            <span class="label">Picked</span>
+            Clearly labelled as a verified service, tone warm but unambiguously not human
+          </div>
+        </div>
+        <p class="why"><strong>Why.</strong> Honesty about what's on the other end of the conversation is non-negotiable in a wellbeing context. A resident reaching out at low ebb deserves to know whether they're talking to a person or a routing system. The verification badge doubles as a safeguarding signal — it's how you tell the legitimate council-backed service from the scam impersonator that will inevitably appear within months of launch. The voice is warm because warmth is appropriate; the identity is clear because pretending otherwise erodes trust the moment it's noticed.</p>
+      </div>
+
+      <div class="decision">
+        <div class="decision-head">Decision · 07</div>
+        <h3>Booking confirmation is opt-in for reminders</h3>
+        <div class="versus">
+          <div class="option">
+            <span class="label">Considered</span>
+            Auto-enrolling in reminders, calendar invites, follow-up check-ins by default
+          </div>
+          <div class="versus-mark">→</div>
+          <div class="option picked">
+            <span class="label">Picked</span>
+            A single, optional <em>"want me to send a reminder Tuesday morning?"</em> with a clean no-thanks
+          </div>
+        </div>
+        <p class="why"><strong>Why.</strong> Notification overload is its own form of harm — for residents managing anxiety, an unexpected ping is sometimes worse than a missed session. The default is silence; the resident chooses how much contact they want. This also models the right consent pattern for the service overall: ask before doing, every time.</p>
+      </div>
+
+    </div>
+
+    <p style="margin-top: 32px;"><strong>What was deliberately cut from the prototype:</strong> any progress tracking ("you've used this service three times"), any account creation, any feedback form after a session, any social or community features, any gamification of usage. The shape that emerged was a service that does one thing and gets out of the way — closer to dialling 111 than to opening an app.</p>
+
+  </div>
+</section>
+
+<!-- ═══════════════ SECTION 05 — PROCESS ═══════════════ -->
+<section class="section-block">
+  <div class="container">
+
+    <div class="section-mark">
+      <span class="chip">05</span>
       <span class="label">The shape of the process</span>
       <span class="rule"></span>
     </div>
@@ -747,12 +1293,12 @@
   </div>
 </section>
 
-<!-- ═══════════════ SECTION 04 — MOCKUP ═══════════════ -->
+<!-- ═══════════════ SECTION 06 — MOCKUP ═══════════════ -->
 <section class="section-block gold-tint">
   <div class="container">
 
     <div class="section-mark">
-      <span class="chip">04</span>
+      <span class="chip">06</span>
       <span class="label">The mockup, in situ</span>
       <span class="rule"></span>
     </div>
@@ -781,9 +1327,74 @@
     </div>
     <p>Compiled by Richard Basteed, Bloomsbury Football Foundation, for <a href="https://www.phoenixcourt.vc/phoenix-court-works" target="_blank">Phoenix Court Works</a>. Process and artefacts free to fork, copy, adapt — particularly if you're running similar workshops in your own community.</p>
     <p>The matching engine described here is structurally the same one Pantry Relay and 23 Languages would use. Build one well and the other two get easier.</p>
-    <p class="colophon">Set in Fraunces &amp; Inter · April 2026 · v2</p>
+    <p class="colophon">Set in Fraunces &amp; Inter · April 2026 · v3</p>
   </div>
 </footer>
 
+
+<script>
+(function () {
+  // Respect reduced-motion preference
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* ── Scroll progress bar ── */
+  const bar = document.createElement('div');
+  bar.className = 'scroll-bar';
+  document.body.prepend(bar);
+  window.addEventListener('scroll', function () {
+    const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    bar.style.transform = 'scaleX(' + Math.min(pct, 1) + ')';
+  }, { passive: true });
+
+  /* ── Intersection Observer ── */
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -48px 0px' });
+
+  /* ── Observe section marks ── */
+  document.querySelectorAll('.section-mark').forEach(function (el) {
+    io.observe(el);
+  });
+
+  /* ── Observe single elements ── */
+  ['h2', '.lede', '.pullquote', '.convergence', '.scorecard', '.mockup-frame']
+    .forEach(function (sel) {
+      document.querySelectorAll(sel).forEach(function (el) {
+        el.classList.add('reveal');
+        io.observe(el);
+      });
+    });
+
+  /* ── Staggered groups ── */
+  function stagger(selector, step) {
+    document.querySelectorAll(selector).forEach(function (el, i) {
+      el.classList.add('reveal');
+      el.style.setProperty('--reveal-delay', (i * step) + 'ms');
+      io.observe(el);
+    });
+  }
+
+  stagger('.theme',     80);
+  stagger('.artefact',  70);
+  stagger('.candidate', 90);
+  stagger('.decision',  55);
+
+  /* ── Subtle hero parallax on the gradient overlay ── */
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY < window.innerHeight) {
+        hero.style.setProperty('--parallax', (window.scrollY * 0.28) + 'px');
+      }
+    }, { passive: true });
+    hero.style.setProperty('--parallax', '0px');
+  }
+})();
+</script>
 </body>
 </html>
