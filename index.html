@@ -510,6 +510,26 @@
     color: rgba(255,255,255,0.2);
   }
 
+  /* ───── Bottom-left corner tag ───── */
+  .corner-tag {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faded);
+    background: var(--paper);
+    padding: 6px 12px;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.75;
+  }
+  @media (max-width: 600px) { .corner-tag { display: none; } }
+
   /* ───── Solution comparison cards ───── */
   .comparison {
     margin: 32px 0 8px;
@@ -1358,9 +1378,11 @@
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
   <div class="container">
-    <p class="colophon">Phoenix Court Works &nbsp;·&nbsp; AI Neighbourhood Lab Event &nbsp;·&nbsp; Workshop Output</p>
+    <p class="colophon">AI Neighbourhood Lab Event &nbsp;·&nbsp; Workshop Output</p>
   </div>
 </footer>
+
+<div class="corner-tag">Phoenix Court Works</div>
 
 
 <script>
