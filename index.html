@@ -826,6 +826,36 @@
       opacity: 1;
       transform: none;
     }
+    /* variant: slides in from left */
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition:
+        opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal-left.is-visible { opacity: 1; transform: none; }
+    /* variant: slides in from right */
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(20px);
+      transition:
+        opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal-right.is-visible { opacity: 1; transform: none; }
+    /* variant: scales up from slightly small */
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.96);
+      transition:
+        opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal-scale.is-visible { opacity: 1; transform: none; }
   }
 </style>
 </head>
@@ -843,7 +873,7 @@
     <h1>One <span class="ital">Front</span> Door</h1>
     <p class="standfirst">A wellbeing signposter for the neighbourhood, built across one workshop session using Granola, ChatGPT and Claude.</p>
     <div class="byline">
-      <span><strong>Bloomsbury</strong>, London</span>
+      <span><strong>Phoenix Court</strong>, London NW1 1EY</span>
       <span class="dot"></span>
       <span>~1 hour workshop</span>
       <span class="dot"></span>
@@ -1013,7 +1043,7 @@
 </section>
 
 <!-- ═══════════════ SECTION 03 — WHY THIS WON ═══════════════ -->
-<section class="section-block alt">
+<section class="section-block gold-tint">
   <div class="container">
 
     <div class="section-mark">
@@ -1125,7 +1155,7 @@
 </section>
 
 <!-- ═══════════════ SECTION 04 — PROTOTYPE DESIGN ═══════════════ -->
-<section class="section-block">
+<section class="section-block alt">
   <div class="container">
 
     <div class="section-mark">
@@ -1362,27 +1392,39 @@
   });
 
   /* ── Observe single elements ── */
-  ['h2', '.lede', '.pullquote', '.convergence', '.scorecard', '.mockup-frame']
-    .forEach(function (sel) {
-      document.querySelectorAll(sel).forEach(function (el) {
-        el.classList.add('reveal');
-        io.observe(el);
-      });
+  // h2s scale up; lede/convergence/scorecard/mockup-frame fade up (default reveal)
+  document.querySelectorAll('h2').forEach(function (el) {
+    el.classList.add('reveal-scale');
+    io.observe(el);
+  });
+  ['.lede', '.convergence', '.scorecard', '.mockup-frame'].forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el) {
+      el.classList.add('reveal');
+      io.observe(el);
     });
+  });
+  // pullquotes slide from left (they already have their own CSS above)
+  document.querySelectorAll('.pullquote').forEach(function (el) { io.observe(el); });
 
   /* ── Staggered groups ── */
-  function stagger(selector, step) {
+  function stagger(selector, step, cls) {
     document.querySelectorAll(selector).forEach(function (el, i) {
-      el.classList.add('reveal');
+      el.classList.add(cls || 'reveal');
       el.style.setProperty('--reveal-delay', (i * step) + 'ms');
       io.observe(el);
     });
   }
 
-  stagger('.theme',     80);
-  stagger('.artefact',  70);
-  stagger('.candidate', 90);
-  stagger('.decision',  55);
+  stagger('.theme',     80,  'reveal-left');   // room themes slide from left
+  stagger('.artefact',  70,  'reveal-left');   // artefact cards slide from left
+  stagger('.candidate', 90,  'reveal');        // candidates fade up with stagger
+  // decisions alternate: even ones from left, odd from right
+  document.querySelectorAll('.decision').forEach(function (el, i) {
+    var cls = i % 2 === 0 ? 'reveal-left' : 'reveal-right';
+    el.classList.add(cls);
+    el.style.setProperty('--reveal-delay', (i * 55) + 'ms');
+    io.observe(el);
+  });
 
   /* ── Subtle hero parallax on the gradient overlay ── */
   const hero = document.querySelector('.hero');
